@@ -1,0 +1,4 @@
+interface:
+  display_name: "Figma To CMS Authoring"
+  short_description: "Turn Figma requirements into CMS authoring UI/backend PRs."
+  default_prompt: "Use $figma-to-cms-authoring to turn this Figma design into CMS authoring UI/backend PRs."
