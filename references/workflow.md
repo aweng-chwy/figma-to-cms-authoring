@@ -33,7 +33,7 @@
 | UI can collect the field but preview/details are incomplete | Update preview/details and focused tests. |
 | Figma adds a backend-backed dropdown option | Update `content-authoring-backend` option/enum support first, then UI types/options/forms/tests. |
 | Figma adds a new stored widget field | Update backend schema/resolver/validation first, then UI generated types/form handling/preview/tests. |
-| Delivery template cannot render the requested content | Stop and document the `cms-template-library` gap. |
+| Website component cannot render the requested content | Stop and document the gap, or use `$cms-component-update` if the user approves `cms-template-library` work. |
 | Backend persistence or ownership is unclear | Stop and document the backend/schema gap before UI work. |
 
 ## Implementation Order

@@ -23,6 +23,7 @@ Use this skill to convert a Figma design into authoring-product code changes and
 - Do not create, update, delete, schedule, or publish CMS records.
 - Do not create content placements or page-type rollouts.
 - Do not change `cms-template-library` unless the user separately approves delivery-template work.
+- When website component rendering is approved or required, use `$cms-component-update` for the `cms-template-library` changes.
 - Stop if the Figma requirement cannot map to a known or explicitly requested authoring contract.
 - Keep UI and backend PRs separate when both repos change, and cross-link them.
 - Use repo commands for generated GraphQL/types; do not hand-edit generated artifacts.
