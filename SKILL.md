@@ -11,12 +11,13 @@ Use this skill to convert a Figma design into authoring-product code changes and
 
 1. Read `references/workflow.md` before implementation.
 2. Intake Figma source, JIRA ticket, target repo set, authoring UI area/widget, backend contract expectation, design states, and acceptance criteria.
-3. Produce a concise Figma-to-authoring mapping before editing code.
-4. If a new stored field, enum value, dropdown option, validation rule, or API shape is needed, change `content-authoring-backend` first.
-5. Change `content-authoring-ui` for forms, option lists, validation, preview/details, mocks, generated types, and tests.
-6. Run focused verification in each changed repo.
-7. Fill the relevant PR template from `references/pr-template-ui.md` and, if needed, `references/pr-template-backend.md`.
-8. Show PR titles and bodies for confirmation before committing, pushing, or opening draft PRs.
+3. Classify the requested change before editing: form field/content mismatch, layout/spacing mismatch, preview/rendering mismatch, or backend contract support.
+4. Produce a concise Figma-to-authoring mapping before editing code.
+5. If a new stored field, enum value, dropdown option, validation rule, widget type, or API shape is needed, change `content-authoring-backend` first.
+6. Change `content-authoring-ui` for forms, option lists, validation, preview/details, mocks, generated types, and tests.
+7. Run focused verification in each changed repo.
+8. Fill the relevant PR template from `references/pr-template-ui.md` and, if needed, `references/pr-template-backend.md`.
+9. Show PR titles and bodies for confirmation before committing, pushing, or opening draft PRs.
 
 ## Non-Negotiable Gates
 
@@ -25,6 +26,10 @@ Use this skill to convert a Figma design into authoring-product code changes and
 - Do not change `cms-template-library` unless the user separately approves delivery-template work.
 - When website component rendering is approved or required, use `$cms-component-update` for the `cms-template-library` changes.
 - Stop if the Figma requirement cannot map to a known or explicitly requested authoring contract.
+- Preserve existing authoring chrome unless the user explicitly asks for visual styling changes. A prompt about wrong fields should not restyle popover headers, footers, padding, width, or buttons.
+- Treat hidden Figma fields as not author-visible unless the user explicitly asks to expose them.
+- Verify Chirp/KIB token names before using them; do not copy Figma-only names such as generic `label` into code.
+- For responsive previews, isolate horizontal scrolling to the visual grid/list rather than the outer body container when vertical content must remain visible.
 - Keep UI and backend PRs separate when both repos change, and cross-link them.
 - Use repo commands for generated GraphQL/types; do not hand-edit generated artifacts.
 
