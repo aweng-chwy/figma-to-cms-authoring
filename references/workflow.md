@@ -2,7 +2,7 @@
 
 ## Inputs
 
-- Figma URL with file, page, and node IDs, or exported design JSON/assets.
+- Published Figma URL with file, page, and node IDs. Use exported design JSON/assets only when the user asks or MCP access is blocked and the fallback is approved.
 - JIRA ticket, branch name, base branch, and target repo set.
 - Target authoring UI area, widget type, or current route.
 - Backend contract expectation, if any.
@@ -15,6 +15,7 @@
 ```markdown
 ## Figma Intake
 - Source:
+- Figma access notes:
 - Frames:
 - Authoring UI area:
 - Required author-configurable fields:
@@ -23,6 +24,17 @@
 - Assets and copy:
 - Accessibility notes:
 ```
+
+## Figma MCP Access Rules
+
+- Prefer `chewy-figma` MCP data from the published Figma node. Do not reach for local exports when the user asks to use the published file.
+- If a node fetch fails, try both Figma node ID formats: `115-20531` and `115:20531`.
+- Distinguish access states clearly:
+  - node returned with metadata: use it as the source of truth
+  - file accessible but node missing: ask whether the node is published or changed
+  - file/node inaccessible: report MCP/access failure before using any fallback
+- Use `chewy_figma_to_metadata` for node structure and dimensions, `chewy_figma_to_raw_html` for HTML/source layout, `chewy_figma_component_instances` for library components, and `chewy_figma_variable_context` for token usage.
+- Use `chewy-chirp` MCP before writing Chirp component or token code; do not infer Sass token names from Figma labels.
 
 ## Correction Classification
 
@@ -70,6 +82,18 @@ When a new widget type or persisted shape is introduced, update `content-authori
 - Run repo generation commands for generated GraphQL/types and do not hand-edit generated artifacts.
 - Run focused backend build/tests before updating UI generated types.
 
+## New Widget Authoring Checklist
+
+For a new widget, verify each authoring surface explicitly:
+
+- Create widget sheet/list option, label, icon/category, and default item shape.
+- Widget config dialog fields, field order, required state, helper text, validation, and defaults.
+- Item/tile config dialogs, including repeated item add/remove/reorder behavior when applicable.
+- Preview/details rendering for empty, loading, error, and populated states.
+- Responsive preview controls when the Figma includes small/medium/large examples.
+- Generated GraphQL/types after backend schema changes.
+- Mock data, fixtures, and focused tests for the new widget type.
+
 ## Decision Table
 
 | Finding | Path |
@@ -80,7 +104,7 @@ When a new widget type or persisted shape is introduced, update `content-authori
 | Figma adds a backend-backed dropdown option | Update `content-authoring-backend` option/enum support first, then UI types/options/forms/tests. |
 | Figma adds a new stored widget field | Update backend schema/resolver/validation first, then UI generated types/form handling/preview/tests. |
 | Figma introduces a new widget type | Update backend schema, variant guards, interface resolvers, image handling, generated types, and tests before UI wiring. |
-| Website component cannot render the requested content | Stop and document the gap, or use `$cms-component-update` if the user approves `cms-template-library` work. |
+| CMS component cannot render the requested content | Stop and document the gap, or use `$cms-component-update` if the user approves `cms-template-library` work. |
 | Backend persistence or ownership is unclear | Stop and document the backend/schema gap before UI work. |
 
 ## Implementation Order
@@ -88,6 +112,7 @@ When a new widget type or persisted shape is introduced, update `content-authori
 1. Map Figma fields to authoring contract:
    - widget type or authoring route
    - correction category and explicit non-scope
+   - published Figma access result and node IDs used
    - labels, helper text, defaults, required/optional state
    - visible versus hidden Figma fields
    - validation rules
@@ -135,6 +160,7 @@ Acceptance criteria:
 Rules:
 - Do not mutate CMS records.
 - Do not schedule or publish content.
+- Use published Figma MCP data first; do not use local exports unless requested or approved as fallback.
 - Backend changes are allowed only when needed for new authoring fields or options.
 - Do not change delivery-template code unless separately approved.
 ```

@@ -11,20 +11,23 @@ Use this skill to convert a Figma design into authoring-product code changes and
 
 1. Read `references/workflow.md` before implementation.
 2. Intake Figma source, JIRA ticket, target repo set, authoring UI area/widget, backend contract expectation, design states, and acceptance criteria.
-3. Classify the requested change before editing: form field/content mismatch, layout/spacing mismatch, preview/rendering mismatch, or backend contract support.
-4. Produce a concise Figma-to-authoring mapping before editing code.
-5. If a new stored field, enum value, dropdown option, validation rule, widget type, or API shape is needed, change `content-authoring-backend` first.
-6. Change `content-authoring-ui` for forms, option lists, validation, preview/details, mocks, generated types, and tests.
-7. Run focused verification in each changed repo.
-8. Fill the relevant PR template from `references/pr-template-ui.md` and, if needed, `references/pr-template-backend.md`.
-9. Show PR titles and bodies for confirmation before committing, pushing, or opening draft PRs.
+3. Use published Figma MCP data first. Only use local Figma exports if the user asks or MCP access is blocked and the user approves the fallback.
+4. Classify the requested change before editing: form field/content mismatch, layout/spacing mismatch, preview/rendering mismatch, or backend contract support.
+5. Produce a concise Figma-to-authoring mapping before editing code.
+6. If a new stored field, enum value, dropdown option, validation rule, widget type, or API shape is needed, change `content-authoring-backend` first.
+7. Change `content-authoring-ui` for forms, option lists, validation, preview/details, mocks, generated types, and tests.
+8. Run focused verification in each changed repo.
+9. Fill the relevant PR template from `references/pr-template-ui.md` and, if needed, `references/pr-template-backend.md`.
+10. Show PR titles and bodies for confirmation before committing, pushing, or opening draft PRs.
 
 ## Non-Negotiable Gates
 
 - Do not create, update, delete, schedule, or publish CMS records.
 - Do not create content placements or page-type rollouts.
 - Do not change `cms-template-library` unless the user separately approves delivery-template work.
-- When website component rendering is approved or required, use `$cms-component-update` for the `cms-template-library` changes.
+- When CMS component rendering is approved or required, use `$cms-component-update` for the `cms-template-library` changes.
+- Do not use local Figma exports when the user says to use the published file or not to use local exports.
+- Before treating Figma MCP as broken, verify access/publication and try both node ID formats, such as `115-20531` and `115:20531`.
 - Stop if the Figma requirement cannot map to a known or explicitly requested authoring contract.
 - Preserve existing authoring chrome unless the user explicitly asks for visual styling changes. A prompt about wrong fields should not restyle popover headers, footers, padding, width, or buttons.
 - Treat hidden Figma fields as not author-visible unless the user explicitly asks to expose them.
