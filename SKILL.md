@@ -40,6 +40,8 @@ Use this skill to convert a Figma design into authoring-product code changes and
 
 - `content-authoring-ui`: authoring config, forms, validation, preview/details, mocks, tests, generated GraphQL types.
 - `content-authoring-backend`: GraphQL schema, inputs, outputs, enum values, dropdown option source, resolver/service support, validation, tests.
+- `content-authoring-c`: APIs that `content-authoring-backend` requests; inspect when backend behavior depends on an upstream API contract or response.
+- `content-a`: runtime delivery API; usually out of scope for authoring work, but relevant when handing rendering changes to `$cms-component-update`.
 - `cms-template-library`: out of scope unless explicitly requested.
 
 ## References

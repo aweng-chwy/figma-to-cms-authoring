@@ -25,6 +25,14 @@
 - Accessibility notes:
 ```
 
+## Repo Relationship Map
+
+- `content-authoring-ui`: authoring forms, dialogs, widget selection, preview/details UI, mocks, tests, and generated GraphQL client types.
+- `content-authoring-backend`: authoring GraphQL schema, inputs/outputs, resolvers, validation, widget persistence, image handling, and generated artifacts.
+- `content-authoring-c`: APIs that `content-authoring-backend` requests. Inspect this repo when backend behavior depends on an upstream authoring API contract, response shape, or service behavior.
+- `content-a`: runtime delivery API. Use it only as handoff context from authoring work; `$cms-component-update` treats it as the source of truth for rendered CMS component payloads.
+- `cms-template-library`: CMS components that render `content-a` payloads. Do not edit from this skill unless the user separately approves CMS component work.
+
 ## Figma MCP Access Rules
 
 - Prefer `chewy-figma` MCP data from the published Figma node. Do not reach for local exports when the user asks to use the published file.
